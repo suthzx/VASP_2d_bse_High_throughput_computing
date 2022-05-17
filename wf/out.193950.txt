@@ -1,0 +1,55 @@
+Sender: LSF System <lsfadmin@d02n02>
+Subject: Job 193950: <c2dbbse0> in cluster <platform> Exited
+
+Job <c2dbbse0> was submitted from host <d01n01> by user <sutianhao> in cluster <platform>.
+Job was executed on host(s) <d02n02>, in queue <dell4>, as user <sutianhao> in cluster <platform>.
+</share/home/sutianhao> was used as the home directory.
+</share/home/sutianhao/bse/wf> was used as the working directory.
+Started at Fri Dec  3 12:33:20 2021
+Results reported on Thu Dec  9 22:57:44 2021
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -q dell4
+#BSUB -o out.%J.txt
+#BSUB -e error.%J.txt
+#BSUB -J c2dbbse0
+#BSUB -n 1
+##BSUB -R "span[ptile=72]"
+#BSUB -R "span[hosts=1]"
+
+source /etc/profile
+module load gold/vasp/vasp544_avx512_intel2018
+#Run MultiTheads per MPI Process
+#-genv OMP_NUM_THREADS 1
+export OMP_NUM_THREADS=1
+##########export LD_PRELOAD=/share/apps/glibc-2.14/lib/libc-2.14.so
+python c2dbbse0.py>log
+####vaspkit生成KPOINTS POTCAR	
+
+------------------------------------------------------------
+
+TERM_OWNER: job killed by owner.
+Exited with exit code 1.
+
+Resource usage summary:
+
+    CPU time :                                   5098.51 sec.
+    Max Memory :                                 68 MB
+    Average Memory :                             64.60 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Processes :                              5
+    Max Threads :                                7
+
+The output (if any) follows:
+
+
+
+PS:
+
+Read file <error.193950.txt> for stderr output of this job.
+

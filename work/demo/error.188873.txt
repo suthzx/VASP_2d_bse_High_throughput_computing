@@ -1,0 +1,6 @@
+rm: cannot remove ‘WAVECAR*’: No such file or directory
+rm: cannot remove ‘WAVEDER*’: No such file or directory
+ WARNING: for PREC=h ENMAX is automatically increase by 25 %
+        this was not the case for versions prior to vasp.4.4
+ WARNING: for PREC=h ENMAX is automatically increase by 25 %
+        this was not the case for versions prior to vasp.4.4

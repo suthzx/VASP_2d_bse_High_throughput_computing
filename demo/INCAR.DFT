@@ -1,0 +1,13 @@
+#Si_dft_exc
+System  = Si
+
+PREC = H
+ALGO = All 
+ISMEAR = 0 ; SIGMA = 0.02
+KPAR = 2
+ADDGRID = T
+EDIFF = 1.E-8
+ISPIN = 2
+NELM = 200
+TIME = 0.1
+NUPDOWN = 0

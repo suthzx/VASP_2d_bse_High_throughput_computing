@@ -1,0 +1,151 @@
+Sender: LSF System <lsfadmin@r03n05>
+Subject: Job 188873: <bse> in cluster <platform> Done
+
+Job <bse> was submitted from host <mgt02> by user <sutianhao> in cluster <platform>.
+Job was executed on host(s) <72*r03n05>, in queue <gold>, as user <sutianhao> in cluster <platform>.
+</share/home/sutianhao> was used as the home directory.
+</share/home/sutianhao/bse/work/demo> was used as the working directory.
+Started at Sun Oct 31 22:41:58 2021
+Results reported on Sun Oct 31 23:33:18 2021
+
+Your job looked like:
+
+------------------------------------------------------------
+# LSBATCH: User input
+#!/bin/bash
+#BSUB -q gold
+#BSUB -o out.%J.txt
+#BSUB -e error.%J.txt
+#BSUB -J bse
+#BSUB -n 72
+##BSUB -R "span[ptile=72]"
+#BSUB -R "span[hosts=1]"
+
+source /etc/profile
+module load gold/vasp/vasp544_avx512_intel2018
+#Run MultiTheads per MPI Process
+#-genv OMP_NUM_THREADS 1
+export OMP_NUM_THREADS=1
+
+####vaspkit生成KPOINTS POTCAR
+	
+vaspkit -task 103
+wait
+########vaspkit -task 102
+echo -e "922\n18" | vaspkit
+mv POSCAR_REV POSCAR
+wait
+rm WAVECAR* WAVEDER*
+
+cp INCAR.DFT INCAR
+mpirun -genv I_MPI_FABRICS shm -bootstrap lsf vasp_std > stdout_dft.txt
+cp OUTCAR OUTCAR.DFT
+cp vasprun.xml vasprun.DFT.xml
+
+###NBANDS change
+python nba.py >nbalog
+###all change NBANDS
+
+cp INCAR.DIAG INCAR
+mpirun -genv I_MPI_FABRICS shm -bootstrap lsf vasp_std > stdout_diag.txt
+touch done_diag
+cp OUTCAR OUTCAR.DIAG
+cp vasprun.xml vasprun.DIAG.xml
+./extract_optics.sh
+mv optics.dat optics.DFT.dat
+
+# cp WAVECAR WAVECAR.chi
+# cp WAVEDER WAVEDER.chi
+# cp INCAR.scGW0 INCAR
+# $vasp_std
+# cp OUTCAR OUTCAR.scGW0
+# cp vasprun.xml vasprun.scGW0.xml
+
+cp INCAR.GW0 INCAR
+
+(... more ...)
+------------------------------------------------------------
+
+Successfully completed.
+
+Resource usage summary:
+
+    CPU time :                                   224264.59 sec.
+    Max Memory :                                 634781 MB
+    Average Memory :                             129695.83 MB
+    Total Requested Memory :                     -
+    Delta Memory :                               -
+    Max Swap :                                   6055 MB
+    Max Processes :                              73
+    Max Threads :                                73
+
+The output (if any) follows:
+
+ +---------------------------------------------------------------+
+ |             VASPKIT Version: 1.12 (01 Mar. 2020)              |
+ |            Running VASPKIT Under Command-Line Mode            |
+ +---------------------------------------------------------------+
+  -->> (01) Reading Structural Parameters from POSCAR File...
+  -->> (02) Written POTCAR File with the Recommended Potential!
+ +---------------------------------------------------------------+
+ |                          * CITATIONS *                        |
+ | We Would Appreciate if You Cite in Your Research with VASPKIT.|
+ | [1] V. Wang, N. Xu, J.C. LIU, G. Tang, et al, VASPKIT: A Pre- |
+ | and Post-Processing Program for VASP Code, arXiv:1908.08269.  |
+ +---------------------------------------------------------------+
+ 
+            \\\///         
+           / _  _ \       Hey, you must know what you are doing.  
+         (| (.)(.) |)     Otherwise you might get wrong results!  
+ +-----.OOOo--()--oOOO.------------------------------------------+
+ |             VASPKIT Version: 1.12 (01 Mar. 2020)              |
+ |        Core Developer: Vei WANG (wangvei@icloud.com)          |
+ |     Main Contributors: Nan XU, Jin-Cheng LIU & Gang TANG      |
+ |    Please send Bugs and Suggestions to vaspkit@gmail.com      |
+ +-----.oooO-----------------------------------------------------+
+        (   )   Oooo.     
+         \ (    (   )     
+          \_)    ) /      
+                (_/       
+ ===================== Structural Options ========================
+ 1)  VASP Input Files Generator    2)  Elastic-Properties         
+ 3)  K-Path Generator              4)  Structure Editor           
+ 5)  Catalysis-ElectroChem Kit     6)  Symmetry Search            
+ 
+ ===================== Electronic Options ========================
+ 11) Density-of-States             21) DFT Band-Structure         
+ 23) 3D Band-Structure             25) Hybrid-DFT Band-Structure  
+ 26) Fermi-Surface                 28) Band-Structure Unfolding   
+ 
+ =========== Charge & Potential & Wavefunction Options ===========
+ 31) Charge & Spin Density         42) Potential-Related          
+ 51) Wave-Function Analysis  
+ ====================== Misc Utilities ===========================
+ 71) Optical-Properties            72) Molecular-Dynamics Kit 
+ 73) VASP2other Interface          74) USER interface
+ 91) Semiconductor Calculator      92) 2D-Materials Kit       
+                                                                  
+ 0)  Quit                                                         
+ ------------>>
+ +---------------------------------------------------------------+
+ Input Vacuum Thickness (12 Angstrom is Enough): 
+ 
+ ------------>>
+  -->> (01) Reading Structural Parameters from POSCAR File...
+  -->> (02) Written POSCAR_REV File!
+ +---------------------------------------------------------------+
+ |                       * ACKNOWLEDGMENTS *                     |
+ | Other Contributors: Xue-Fei LIU, Peng-Fei LIU, Dao-Xiong WU,  |
+ | Zhao-Fu ZHANG, Tian WANG, Ya-Chao LIU, Qiang LI, iGo and You! |
+ +---------------------------------------------------------------+
+ |                          * CITATIONS *                        |
+ | We Would Appreciate if You Cite in Your Research with VASPKIT.|
+ | [1] V. Wang, N. Xu, J.C. LIU, G. Tang, et al, VASPKIT: A Pre- |
+ | and Post-Processing Program for VASP Code, arXiv:1908.08269.  |
+ +---------------------------------------------------------------+
+
+
+PS:
+
+Read file <error.188873.txt> for stderr output of this job.
+

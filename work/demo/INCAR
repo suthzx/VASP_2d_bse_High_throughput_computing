@@ -1,0 +1,13 @@
+#Si_bse
+System  = Si
+PREC = Normal ; ENCUT = 520
+ALGO = BSE 
+ANTIRES = 0
+ISMEAR = 0 ; SIGMA = 0.01
+ENCUTGW = 150
+EDIFF = 1.E-8 # default 1.E-4
+NBANDS=288
+NBANDS=288
+NBANDS=288
+OMEGAMAX = 20
+PRECFOCK = Normal
