@@ -1,6 +1,6 @@
 # VASP_2d_bse_High_throughput_computing
 Quick Use  :blush: Update and maintenance: thsu0407@gmail.com  
-- [x] High throughput calculation c2DB 2d material BSE used for high throughput calculation, data processing flow  
+- [x] High throughput calculation C2DB 2D material BSE used for high throughput calculation, data processing flow  
 - [x] Note that the structure position has been repositioned for 2D material  
 
 `1`:For specific calculation process files, see demo (large files such as CHGCAR and WAVECAR have been deleted)    
